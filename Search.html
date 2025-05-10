@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Users</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="notifications.html">Notifications</a></li>
+        <li><a href="Profile.html">profile</a></li>
+        <li><a href="trending.html">Trending</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="search-page">
+    <h2>Search Users</h2>
+    <input type="text" id="searchInput" placeholder="Search by username..." onkeyup="filterUsers()">
+
+    <ul id="userList" class="user-list">
+      <li>mennasherif14</li>
+      <li>mariammouradd</li>
+      <li>habiba_mustafaaa</li>
+      <li>adamsaye_d</li>
+      <li>moustafasayed068</li>
+      <li>farisrizk__</li>
+    </ul>
+  </main>
+
+  <script>
+    function filterUsers() {
+      let input = document.getElementById('searchInput').value.toLowerCase();
+      let listItems = document.querySelectorAll('#userList li');
+      listItems.forEach(li => {
+        li.style.display = li.textContent.toLowerCase().includes(input) ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
