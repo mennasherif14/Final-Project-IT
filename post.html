@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home | Social Media Forum</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <ul>
+    <li class="exe">
+      <div class="menu-toggle" onclick="toggleSidebar()" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </li>
+    <li><a href="home.html"><i class="fas fa-home"></i> <span>Home</span></a></li>
+    <li><a href="messanger.html"><i class="fab fa-facebook-messenger"></i> <span>Messenger</span></a></li>
+    <li><a href="Profile.html"><i class="fas fa-user"></i> <span>Profile</span></a></li>
+    <li><a href="categorys.html"><i class="fas fa-list"></i> <span>Categories</span></a></li>
+    <li><i class="fas fa-sign-out-alt"></i> <span>Logout</span></li>
+  </ul>
+</div>
+
+<header class="navbar">
+  <nav class="nav-container">
+    <div class="nav-icons">
+      <a href="home.html"><i class="fas fa-home"></i></a>
+      <i class="fas fa-search" onclick="toggleSearch()"></i>
+
+      <!-- Search input -->
+      <input type="text" id="searchInput" placeholder="اكتب للبحث..." onkeyup="search()" style="display: none;">
+      <i class="fab fa-facebook-messenger"></i>
+      <i class="fas fa-plus-circle" title="Add Post" onclick="showAddPostForm()"></i>
+    </div>
+    <div id="results"></div>
+  </nav>
+</header>
+
+<!-- Add Post Form -->
+<div id="addPostForm">
+  <h3>إضافة بوست جديد</h3>
+  <form id="postForm">
+    <textarea id="postContent" placeholder="اكتب هنا..." required></textarea><br><br>
+    <input type="file" id="mediaInput" accept="image/*,video/*"><br><br>
+    <select id="categorySelect">
+      <option value="sports">Sports</option>
+      <option value="tech">Tech</option>
+      <option value="entertainment">Entertainment</option>
+      <option value="cooking">Cooking</option>
+      <option value="love">Love</option>
+    </select><br><br>
+    <button type="submit">نشر</button>
+    <button type="button" onclick="hideAddPostForm()">إلغاء</button>
+  </form>
+</div>
+
+<!-- Post List -->
+<div id="postList"></div>
+
+<script>
+// Show Add Post Form
+function showAddPostForm() {
+  document.getElementById('addPostForm').style.display = 'block';
+}
+
+// Hide Add Post Form
+function hideAddPostForm() {
+  document.getElementById('addPostForm').style.display = 'none';
+}
+
+// Add Post
+document.getElementById("postForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const content = document.getElementById("postContent").value;
+  const mediaInput = document.getElementById("mediaInput");
+  const category = document.getElementById("categorySelect").value;
+  const file = mediaInput.files[0];
+
+  const post = {
+    content: content,
+    category: category,
+    media: null,
+    type: null
+  };
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      post.media = event.target.result;
+      post.type = file.type;
+      savePost(post);
+    };
+    reader.readAsDataURL(file);
+  } else {
+    savePost(post);
+  }
+
+  document.getElementById("postForm").reset();
+  hideAddPostForm();
+});
+
+// Save Post
+function savePost(post) {
+  const posts = JSON.parse(localStorage.getItem("posts") || "[]");
+  posts.unshift(post);
+  localStorage.setItem("posts", JSON.stringify(posts));
+  renderPosts();
+}
+
+// Render Posts
+function renderPosts() {
+  const posts = JSON.parse(localStorage.getItem("posts") || "[]");
+  const postList = document.getElementById("postList");
+  postList.innerHTML = "";
+
+  posts.forEach(post => {
+    const postDiv = document.createElement("div");
+    postDiv.className = "post";
+    postDiv.innerHTML = `<p><strong>Category: ${post.category}</strong></p><p>${post.content}</p>`;
+
+    if (post.media) {
+      if (post.type.startsWith("video")) {
+        postDiv.innerHTML += `<video width="300" controls><source src="${post.media}" type="${post.type}"></video>`;
+      } else {
+        postDiv.innerHTML += `<img src="${post.media}" width="300">`;
+      }
+    }
+
+    postList.appendChild(postDiv);
+  });
+}
+
+// Load posts when page loads
+renderPosts();
+
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>

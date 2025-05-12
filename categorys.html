@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Search Users</title>
+  <title>Home | Social Media Forum</title>
   <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 <!-- Sidebar -->
@@ -38,20 +38,39 @@
     <div id="results"></div>
   </nav>
 </header>
-  <!-- Main Content -->
-  <main class="search-page">
-    <h2>Search Users</h2>
-    <input type="text" id="searchInput" placeholder="Search by username..." onkeyup="filterUsers()">
+<form id="categoryForm">
+    <h3>إضافة كاتيجوري جديدة</h3>
 
-    <ul id="userList" class="user-list">
-      <li>mennasherif14</li>
-      <li>mariammouradd</li>
-      <li>habiba_mustafaaa</li>
-      <li>adamsaye_d</li>
-      <li>moustafasayed068</li>
-      <li>farisrizk__</li>
-    </ul>
-  </main>
+    <label for="categoryName"> categoryName:</label><br>
+    <input type="text" id="categoryName" required><br><br>
+
+    <label for="categoryDescription">Description:</label><br>
+    <textarea id="categoryDescription" rows="4"></textarea><br><br>
+
+    <label for="categoryImage">صورة():</label><br>
+    <input type="file" id="categoryImage" accept="image/*"><br><br>
+
+    <button type="submit">إضافة</button>
+  </form>
+
+  <div id="categoryList"></div>
+
+  <!-- ✅ الكاتيجوريز -->
+  <section class="categories">
+    <div class="category"><i class="fas fa-cat"></i> عام</div>
+    <div class="category"><i class="fas fa-futbol"></i> رياضة</div>
+    <div class="category"><i class="fas fa-microchip"></i> تكنولوجيا</div>
+    <div class="category"><i class="fas fa-film"></i> ترفيه</div>
+    <div class="category"><i class="fas fa-utensils"></i> طبخ</div>
+    <div class="category"><i class="fas fa-heart"></i> حب</div>
+  </section>
+<section>
+  <div class="categories" id="categoryList">
+    <!-- الكاتيجوريز هتظهر هنا تلقائيًا -->
+  </div>
+</section>
+
+
 
 <script src="script.js"></script>
 </body>

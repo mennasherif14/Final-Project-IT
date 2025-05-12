@@ -1,35 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Profile Customization</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <title>Profile Customization</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    #updatedProfile {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 10px;
+      background-color: #f4f4f4;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      text-align: center;
+    }
+    #updatedProfile img {
+      max-width: 100px;
+      border-radius: 50%;
+    }
+  </style>
 </head>
 <body>
-    <header class="navbar">
-        <nav>
-            <ul>
-             <li><a href="index.html">Home</a></li>
-             <li><a href="Search.html">Search</a></li>
-             <li><a href="notifications.html">Notifications</a></li>
-             <li><a href="Profile.html">profile</a></li>
-             <li><a href="trending.html">Trending</a></li>
-            </ul>
-        </nav>
-    </header>
-    <h1 class="edit">Edit Your Profile</h1>
-    <form class="form-container" action="#" method="post">
-        <label><b>Username</b>:
-            <input type="text" name="username" />
-        </label><br><br>
-        <label><b>Bio</b>:
-            <textarea name="bio"></textarea>
-        </label><br><br>
-        <label><b>Profile Picture</b>:
-            <input type="file" name="profile_pic" />
-        </label><br><br>
-        <button type="submit">Save Changes</button>
-    </form>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <ul>
+    <li class="exe">
+      <div class="menu-toggle" onclick="toggleSidebar()" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </li>
+    <li><a href="home.html"><i class="fas fa-home"></i> <span>Home</span></a></li>
+    <li><a href="messanger.html"><i class="fab fa-facebook-messenger"></i> <span>Messenger</span></a></li>
+    <li><a href="Profile.html"><i class="fas fa-user"></i> <span>Profile</span></a></li>
+    <li><a href="categorys.html"><i class="fas fa-list"></i> <span>categorys</span></a></li>
+    <li><i class="fas fa-sign-out-alt"></i> <span>Logout</span></li>
+  </ul>
+</div>
+
+<header class="navbar">
+  <nav class="nav-container">
+    <div class="nav-icons">
+      <a href="home.html"><i class="fas fa-home"></i></a>
+      <i class="fas fa-search" onclick="toggleSearch()"></i>
+
+      <!-- Search input -->
+      <input type="text" id="searchInput" placeholder="اكتب للبحث..." onkeyup="search()" style="display: none;">
+
+      <i class="fab fa-facebook-messenger"></i>
+      <a href="post.html"><i class="fas fa-plus-circle" title="Add Post"></i></a>
+    </div>
+    <div id="results"></div>
+  </nav>
+</header>
+
+  <h1 class="edit">Edit Your Profile</h1>
+
+  <form class="form-container" id="editProfileForm">
+    <label><b>Username</b>:
+      <input type="text" name="username" id="username" />
+    </label><br><br>
+    <label><b>Bio</b>:
+      <textarea name="bio" id="bio"></textarea>
+    </label><br><br>
+    <label><b>Profile Picture</b>:
+      <input type="file" name="profile_pic" id="profilePic" accept="image/*" />
+    </label><br><br>
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <!-- مكان عرض النتيجة -->
+  <div id="updatedProfile" style="display: none;">
+    <h2>📌 التحديثات</h2>
+    <img id="previewImg" src="" alt="Profile Picture" />
+    <p><strong>Username:</strong> <span id="displayUsername"></span></p>
+    <p><strong>Bio:</strong> <span id="displayBio"></span></p>
+  </div>
+
+<script src="script.js"></script>
 </body>
 </html>
